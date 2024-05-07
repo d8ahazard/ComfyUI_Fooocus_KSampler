@@ -3,12 +3,14 @@ import comfy.model_base
 import comfy.ldm.modules.diffusionmodules.openaimodel
 import comfy.samplers
 
-from comfy.samplers import model_management, lcm, math
+from comfy.samplers import model_management, math
 from comfy.ldm.modules.diffusionmodules.openaimodel import timestep_embedding, forward_timestep_embed
 from .filters import gaussian_filter_2d
 
 sharpness = 2.0
 
+def lcm(a, b):
+    return abs(a*b) // math.gcd(a, b)  
 
 def sampling_function_patched(model_function, x, timestep, uncond, cond, cond_scale, cond_concat=None, model_options={},
                       seed=None):
